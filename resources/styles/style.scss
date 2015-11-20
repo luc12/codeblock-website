@@ -1,0 +1,374 @@
+/************************************
+Dependencies
+************************************/
+
+@import "../../node_modules/breakpoint-sass/stylesheets/_breakpoint";
+@import "../../node_modules/susy/sass/_susy";
+@import url(https://fonts.googleapis.com/css?family=Raleway:100,300,500,700);
+
+@mixin clearfix() {
+  & {
+    *zoom: 1;
+  }
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+$susy: (
+  global-box-sizing: border-box
+);
+
+@include border-box-sizing;
+
+/************************************
+Responsive Constants
+************************************/
+$bp-small     : 24em;
+$bp-small-2   : 29.75em;
+$bp-small-3   : 39.8em;
+$bp-medium    : 46.8em;
+$bp-medium-2  : 48em;
+$bp-large     : 50em;
+$bp-large-2   : 54.5em;
+$bp-xlarge    : 60em;
+$bp-xlarge-2  : 67em;
+
+/************************************
+Site Constants
+************************************/
+$base-color    : #2980b9;
+$navbar-height : 50px;
+
+/************************************
+Common Styles
+************************************/
+
+*:focus {
+  outline: none;
+}
+
+body {
+  font-family: Raleway, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 300;
+  text-transform: uppercase;
+  text-shadow: 0 0 4px rgba(0,0,0,.4);
+}
+
+h2 {
+  font-size: 1.7em;
+  text-align: center;
+  word-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+h3 {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+}
+
+h2:after {
+  display: block;
+  height: 2px;
+  width: 100px;
+  background-color: $base-color;
+  content: " ";
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+p {
+  line-height: 1.45em;
+}
+
+/*************************************
+Menu
+*************************************/
+
+.nav-up {
+  top: -$navbar-height;
+}
+
+.nav-down {
+  // Empty
+}
+
+header {
+  height: $navbar-height;
+  position: fixed;
+  top: 0;
+  transition: top 0.2s ease-in-out;
+  width: 100%;
+  background: rgba($base-color, 0.8);
+}
+
+section {
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  @include breakpoint($bp-large-2) {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .desc {
+    text-align: center;
+  }
+}
+
+.section-404 {
+  i {
+    font-size: 4em;
+  }
+}
+
+.section-landing,
+.section-404 {
+  margin: 0;
+  padding-top: $navbar-height;
+  width: 100%;
+  height: 100vh;
+  background: 
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url("/img/hero-back.jpg");
+  background-size: cover;
+  background-position: center;
+  display: table;
+
+  .content {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #FFF;
+    text-align: center;
+
+    h1 {
+      font-size: 1.5em;
+    }
+
+    .assure {
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    @include breakpoint($bp-medium) {
+      h1 {
+        font-size: 2em;
+      }
+      .assure {
+        font-size: 1.2em;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.section-landing {
+  .content {
+    .form-location {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .delivery-location {
+      font-weight: 500;
+      font-style: normal;
+      font-size: 1.1em;
+      padding-right: 20px;
+      padding-left: 20px;
+      background-color: rgba(0,0,0,0.3);
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border: 2px solid gray;
+      transition: all 0.4s;
+      width: 100%;
+
+      @include breakpoint($bp-medium) {
+        width: 460px;
+      }
+    }
+
+    .delivery-location:active,
+    .delivery-location:focus {
+      border: 2px solid $base-color;
+    }
+  }
+}
+
+@mixin feature-columns() {
+  @include breakpoint($bp-medium) {
+    > .content {
+      @include container(12);
+      @include clearfix;
+
+      > .feature {
+        @include span(4 of 12);
+        display: inline-block;
+
+        p {
+          text-align: left;
+        }
+      }
+
+      > .feature:last-child {
+        @include span(4 of 12 last);
+      }
+    }
+  }
+
+  > .content .feature {
+    h3 {
+      text-align: center;
+    }
+
+    i {
+      font-size: 4em;
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+.section-intro {
+  .desc {
+    margin-bottom: 50px;
+    font-size: 1.2em;
+  }
+
+  @include feature-columns;
+}
+
+.section-cities {
+  @include feature-columns;
+
+  .content .feature {
+    img {
+      width: 100%; /* for IE 6 */
+      margin-bottom: 15px;
+    }
+  }
+}
+
+.section-steps {
+  > ol {
+    li {
+      line-height: 1.5em;
+    }
+  }
+}
+
+.btn {
+  border: none;
+  font-family: inherit;
+  font-size: 1.2em;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+  padding: 20px 20px;
+  display: inline-block;
+  margin: 15px 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  @include breakpoint($bp-medium) {
+    font-weight: 700;
+  }
+  outline: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-1 {
+  border: 3px solid #fff;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.btn-1f {
+  overflow: hidden;
+}
+
+.btn-1f:hover,
+.btn-1f:active {
+  color: $base-color;
+  border: 3px solid #FFF;
+  background: #FFF;
+}
+
+.btn-action {
+  color: #FFF;
+  background: $base-color;
+}
+
+footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: $base-color;
+
+  .footer-nav {
+    @include breakpoint($bp-large-2) {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+
+    list-style: none;
+
+    li {
+      display: inline-block;
+    }
+  }
+
+  .social-links {
+    list-style: none;
+    text-align: right;
+
+    li {
+      display: inline-block;
+    }
+  }
+
+  .footer-copyright {
+    color: #FFF;
+    font-size: 0.7em;
+  }
+
+  .footer-nav li a:link,
+  .footer-nav li a:visited,
+  .social-links li a:link,
+  .social-links li a:visited {
+    text-decoration: none;
+    border: 0;
+    color: #FFF;
+    transition: color 0.2s;
+    padding: 5px;
+  }
+
+  .footer-nav li a:active,
+  .footer-nav li a:hover {
+    background: #FFF;
+    color: $base-color;
+  }
+
+  .ion-social-facebook:hover, 
+  .ion-social-twitter:hover {
+    background: #FFF;
+    color: $base-color;
+  }
+}

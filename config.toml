@@ -1,0 +1,4 @@
+baseUrl = "https://www.codeblock.io/"
+languageCode = "en-us"
+title = "CodeBlock Inc"
+canonifyurls = true

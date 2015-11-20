@@ -1,0 +1,16 @@
+machine:
+  node:
+    version: 4.1.0
+
+test:
+  post:
+    - "npm run build"
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - "wget https://github.com/spf13/hugo/releases/download/v0.14/hugo_0.14_linux_amd64.tar.gz"
+      - "gzip -dc hugo_0.14_linux_amd64.tar.gz | tar xf -"
+      - "./hugo_0.14_linux_amd64/hugo_0.14_linux_amd64"
+      - "./node_modules/.bin/firebase deploy --token $FIREBASE_TOKEN"
